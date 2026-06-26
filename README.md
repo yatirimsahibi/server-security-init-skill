@@ -1,6 +1,6 @@
 # Server Security Init Skill
 
-A Codex skill for safely initializing and hardening fresh Ubuntu/Debian SSH servers.
+An Agent Skill for safely initializing and hardening fresh Ubuntu/Debian SSH servers.
 
 The skill guides an agent through a staged server bootstrap flow: selecting or generating a local SSH key, requiring public-key login before remote changes, creating a non-root sudo user, changing the SSH port, disabling root/password login, configuring UFW, configuring fail2ban, updating local SSH config, and verifying the operator is not locked out.
 
@@ -34,31 +34,49 @@ server-security-init-skill/
 
 The installable skill is the `server-security-init/` directory. The repository-level files are for humans, validation, and open-source maintenance.
 
-## Installation
+## For AI Agents
 
-Clone this repository, then copy the skill directory into your Codex skills directory.
+Install only the `server-security-init/` directory as the skill.
 
-PowerShell:
+Do not install the repository root as a skill. Do not run server initialization during installation.
 
-```powershell
-Copy-Item -Recurse .\server-security-init "$env:USERPROFILE\.codex\skills\server-security-init"
-```
+After installation, tell the user whether their current agent needs to restart, reload, or refresh skills.
 
-Bash:
+## For Humans
+
+Clone or download this repository:
 
 ```bash
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-cp -R ./server-security-init "${CODEX_HOME:-$HOME/.codex}/skills/server-security-init"
+git clone https://github.com/DeerYang/server-security-init-skill.git
 ```
 
-Restart Codex after installing or updating the skill.
+Then copy only the `server-security-init/` directory into your AI agent's user-level skills directory.
+
+Restart or reload your AI agent if it does not detect new skills automatically.
+
+## Optional: Install with npx
+
+If you have Node.js/npm installed, you can install the skill with the `skills` CLI:
+
+```bash
+npx skills add https://github.com/DeerYang/server-security-init-skill/tree/main/server-security-init -g
+```
+
+To target a specific supported agent:
+
+```bash
+npx skills add https://github.com/DeerYang/server-security-init-skill/tree/main/server-security-init -g -a codex
+npx skills add https://github.com/DeerYang/server-security-init-skill/tree/main/server-security-init -g -a claude-code
+```
+
+Without `-g`, the CLI may install the skill into the current project's skill directory instead of the user-level directory.
 
 ## Usage
 
-Ask Codex to use the skill when initializing a fresh server, for example:
+Ask your AI agent to use the skill when initializing a fresh server, for example:
 
 ```text
-Use $server-security-init to initialize my new Ubuntu server.
+Use server-security-init to initialize my new Ubuntu server.
 ```
 
 The skill is intentionally conservative. It should ask for bootstrap facts before touching the server and should stop if public-key SSH login cannot be verified.
