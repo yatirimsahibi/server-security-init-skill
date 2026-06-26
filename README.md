@@ -1,5 +1,7 @@
 # Server Security Init Skill
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 An Agent Skill for safely initializing and hardening fresh Ubuntu/Debian SSH servers.
 
 The skill guides an agent through a staged server bootstrap flow: selecting or generating a local SSH key, requiring public-key login before remote changes, creating a non-root sudo user, changing the SSH port, disabling root/password login, configuring UFW, configuring fail2ban, updating local SSH config, and verifying the operator is not locked out.
@@ -28,6 +30,7 @@ server-security-init-skill/
     validate_skill.py
   .github/workflows/validate.yml
   README.md
+  README.zh-CN.md
   LICENSE
   SECURITY.md
 ```
