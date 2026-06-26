@@ -1,0 +1,4 @@
+interface:
+  display_name: "Server Security Init"
+  short_description: "Safely harden fresh SSH servers"
+  default_prompt: "Use $server-security-init to securely initialize a fresh Ubuntu/Debian server over SSH."
